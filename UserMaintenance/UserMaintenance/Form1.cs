@@ -29,7 +29,7 @@ namespace UserMaintenance
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var u = new User()
+            User u = new User()
             {
                 FullName = txtFullName.Text,
             };
