@@ -28,11 +28,21 @@ namespace linq
             {
                 string[] sor = sr.ReadLine().Split(";");
                 string country = sor[2];
-                AddCountry(country);
+                Country current = AddCountry(country);
+                Ramen r = new Ramen
+                {
+                    ID = ramens.Count + 1,
+                    CountryFK = current.ID,
+                    Country = current,
+                    Rating = Convert.ToDouble(sor[3]),
+                    Name = sor[1],
+                    Brand = sor[0],
+                };
+                ramens.Add(r);
             }
             sr.Close();
 
-            void AddCountry(string country)
+            Country AddCountry(string country)
             {
                 var currentCountry = (from c in countries
                                       where c.Name.Equals(country)
@@ -46,6 +56,7 @@ namespace linq
                     };
                     countries.Add(currentCountry);
                 }
+                return currentCountry;
             }
         }
 
