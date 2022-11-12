@@ -20,6 +20,8 @@ namespace linq
         {
             InitializeComponent();
             LoadData("Ramen.csv");
+            listCountries.DisplayMember = "Name";
+            GetCountries();
         }
         void LoadData(string fileName)
         {
@@ -80,5 +82,17 @@ namespace linq
             return currentBrand;
         }
 
+    void GetCountries()
+        {
+            var countriesList = from c in countries
+                                where c.Name.Contains(txtCountryFilter.Text)
+                                select c;
+            listCountries.DataSource = countriesList.ToList();
+        }
+
+        private void txtCountryFilter_TextChanged(object sender, EventArgs e)
+        {
+            GetCountries();
+        }
     }
 }

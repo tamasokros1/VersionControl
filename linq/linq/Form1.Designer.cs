@@ -29,13 +29,59 @@ namespace linq
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.txtCountryFilter = new System.Windows.Forms.TextBox();
+            this.listCountries = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // txtCountryFilter
+            // 
+            this.txtCountryFilter.Location = new System.Drawing.Point(13, 27);
+            this.txtCountryFilter.Name = "txtCountryFilter";
+            this.txtCountryFilter.Size = new System.Drawing.Size(100, 23);
+            this.txtCountryFilter.TabIndex = 0;
+            this.txtCountryFilter.TextChanged += new System.EventHandler(this.txtCountryFilter_TextChanged);
+            // 
+            // listCountries
+            // 
+            this.listCountries.FormattingEnabled = true;
+            this.listCountries.ItemHeight = 15;
+            this.listCountries.Location = new System.Drawing.Point(13, 68);
+            this.listCountries.Name = "listCountries";
+            this.listCountries.Size = new System.Drawing.Size(120, 94);
+            this.listCountries.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(160, 68);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.listCountries);
+            this.Controls.Add(this.txtCountryFilter);
+            this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox txtCountryFilter;
+        private System.Windows.Forms.ListBox listCountries;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
