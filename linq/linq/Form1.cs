@@ -14,6 +14,7 @@ namespace linq
     public partial class Form1 : Form
     {
         List<Country> countries = new List<Country>();
+        List<Ramen> ramens = new List<Ramen>();
         public Form1()
         {
             InitializeComponent();
@@ -27,10 +28,16 @@ namespace linq
             {
                 string[] sor = sr.ReadLine().Split(";");
                 string country = sor[2];
+                AddCountry(country);
+            }
+            sr.Close();
+
+            void AddCountry(string country)
+            {
                 var currentCountry = (from c in countries
                                       where c.Name.Equals(country)
                                       select c).FirstOrDefault();
-                if(currentCountry == null)
+                if (currentCountry == null)
                 {
                     currentCountry = new Country
                     {
@@ -40,8 +47,6 @@ namespace linq
                     countries.Add(currentCountry);
                 }
             }
-            sr.Close();
-
         }
 
     }
