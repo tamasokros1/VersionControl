@@ -31,15 +31,15 @@ namespace linq
         {
             this.txtCountryFilter = new System.Windows.Forms.TextBox();
             this.listCountries = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dgwRamen = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwRamen)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCountryFilter
             // 
-            this.txtCountryFilter.Location = new System.Drawing.Point(13, 27);
+            this.txtCountryFilter.Location = new System.Drawing.Point(13, 39);
             this.txtCountryFilter.Name = "txtCountryFilter";
-            this.txtCountryFilter.Size = new System.Drawing.Size(100, 23);
+            this.txtCountryFilter.Size = new System.Drawing.Size(141, 23);
             this.txtCountryFilter.TabIndex = 0;
             this.txtCountryFilter.TextChanged += new System.EventHandler(this.txtCountryFilter_TextChanged);
             // 
@@ -49,29 +49,30 @@ namespace linq
             this.listCountries.ItemHeight = 15;
             this.listCountries.Location = new System.Drawing.Point(13, 68);
             this.listCountries.Name = "listCountries";
-            this.listCountries.Size = new System.Drawing.Size(120, 94);
+            this.listCountries.Size = new System.Drawing.Size(141, 274);
             this.listCountries.TabIndex = 1;
+            this.listCountries.SelectedIndexChanged += new System.EventHandler(this.listCountries_SelectedIndexChanged);
             // 
-            // dataGridView1
+            // dgwRamen
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(160, 68);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 2;
+            this.dgwRamen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwRamen.Location = new System.Drawing.Point(160, 68);
+            this.dgwRamen.Name = "dgwRamen";
+            this.dgwRamen.RowTemplate.Height = 25;
+            this.dgwRamen.Size = new System.Drawing.Size(340, 275);
+            this.dgwRamen.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgwRamen);
             this.Controls.Add(this.listCountries);
             this.Controls.Add(this.txtCountryFilter);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwRamen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,7 +82,7 @@ namespace linq
 
         private System.Windows.Forms.TextBox txtCountryFilter;
         private System.Windows.Forms.ListBox listCountries;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgwRamen;
     }
 }
 
