@@ -87,14 +87,34 @@ namespace week04
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = "";
+                values[counter, 8] = f.Price * 1000000 / f.FloorArea;
                 counter++;
             }
             xlSheet.get_Range(
                 GetCell(2, 1),
-                GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2= values;
+                GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
 
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range wholeTable = xlSheet.get_Range(GetCell(1, 1), GetCell(flats.Count + 1, headers.Length));
+            wholeTable.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range firstColumn = xlSheet.get_Range(GetCell(2, 1), GetCell(flats.Count + 1, 1));
+            firstColumn.Font.Bold = true;
+            firstColumn.Interior.Color = Color.LightYellow;
+
+            Excel.Range lastColumn = xlSheet.get_Range(GetCell(2, headers.Length), GetCell(flats.Count + 1, headers.Length));
+            lastColumn.Interior.Color = Color.LightGreen;
+            lastColumn.NumberFormat = "0.00_)";
         }
+
         private string GetCell(int x, int y)
         {
             string ExcelCoordinate = "";
