@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using week05.Entities;
 using week05.MnbServiceReference;
 
@@ -22,8 +23,9 @@ namespace week05
             InitializeComponent();
             GetExchangeRates();
             dgwRates.DataSource = Rates;
+            ReadXml();
         }
-        void GetExchangeRates()
+        private static string GetExchangeRates()
         {
             var mnbService = new MNBArfolyamServiceSoapClient();
             var request = new GetExchangeRatesRequestBody()
@@ -34,15 +36,26 @@ namespace week05
             };
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+            MessageBox.Show(result);
+            return result;
 
-            /*
-           string exchangeResult = result;
-           File.WriteAllText(@"C:\Users\Tamás\source\repos\VersionControl\UserMaintenance\week05\result.xml", result);
-           string readResult = File.ReadAllText(@"C:\Users\Tamás\source\repos\VersionControl\UserMaintenance\week05\result.xml");
-           Console.WriteLine(readResult);
-           */
-
-
+        }
+        private void ReadXml()
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(GetExchangeRates());
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                var rate = new RateData();
+                Rates.Add(rate);
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
         }
 
     }
