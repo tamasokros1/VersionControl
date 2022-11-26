@@ -18,12 +18,33 @@ namespace week05
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
-        
+        BindingList<string> Currencies = new BindingList<string>();
+
         public Form1()
         {
             InitializeComponent();
             dgwRates.DataSource = Rates;
+            comboBox1.DataSource= Currencies;
+            GetCurrencies();
             RefreshData();
+        }
+        void GetCurrencies()
+        {
+            MNBArfolyamServiceSoapClient m = new MNBArfolyamServiceSoapClient();
+            GetCurrenciesRequestBody request = new GetCurrenciesRequestBody();
+            GetCurrenciesResponseBody response = m.GetCurrencies(request);
+            string result = response.GetCurrenciesResult;
+            XmlDocument x = new XmlDocument();
+            x.LoadXml(result);
+            //MessageBox.Show(result);
+            XmlElement item = x.DocumentElement;
+            int i = 0;
+            while (item.ChildNodes[0].ChildNodes[i] != null)
+            {
+                Currencies.Add(item.ChildNodes[0].ChildNodes[i].InnerText);
+                i++;
+            }
+            m.Close();
         }
 
         private void RefreshData()
@@ -35,19 +56,27 @@ namespace week05
 
         private void ReadXml()
         {
-            var xml = new XmlDocument();
+            XmlDocument xml = new XmlDocument();
             xml.LoadXml(GetExchangeRates());
-            foreach (XmlElement element in xml.DocumentElement)
+            foreach (XmlElement item in xml.DocumentElement)
             {
-                var rate = new RateData();
-                Rates.Add(rate);
-                rate.Date = DateTime.Parse(element.GetAttribute("date"));
-                var childElement = (XmlElement)element.ChildNodes[0];
-                rate.Currency = childElement.GetAttribute("curr");
-                var unit = decimal.Parse(childElement.GetAttribute("unit"));
-                var value = decimal.Parse(childElement.InnerText);
-                if (unit != 0)
-                    rate.Value = value / unit;
+                if (item.ChildNodes[0] != null)
+                {
+                    RateData rd = new RateData();
+                    Rates.Add(rd);
+                    rd.Currency = item.ChildNodes[0].Attributes["curr"].Value;
+                    rd.Date = Convert.ToDateTime(item.Attributes["date"].Value);
+                    decimal unit = Convert.ToDecimal(item.ChildNodes[0].Attributes["unit"].Value);
+                    decimal value = Convert.ToDecimal(item.ChildNodes[0].InnerText);
+                    if (unit != 0)
+                    {
+                        rd.Value = value / unit;
+                    }
+                    else
+                    {
+                        rd.Value = value;
+                    }
+                }
             }
         }
         private void GetChart()
