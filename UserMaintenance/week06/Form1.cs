@@ -17,7 +17,8 @@ namespace week06
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
-        
+        List<decimal> Nyereségek = new List<decimal>();
+
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace week06
             dataGridView1.DataSource = Ticks;
             CreatePortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
+
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -43,7 +44,10 @@ namespace week06
                                       select x)
                                         .ToList();
             // MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+        }
 
+        private void Mentes()
+        {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.ShowDialog();
             using (StreamWriter sw = new StreamWriter(sfd.FileName))
@@ -54,9 +58,8 @@ namespace week06
                     sw.WriteLine(i.ToString() + " " + Nyereségek[i].ToString());
                 }
             };
-
-
         }
+
         private void CreatePortfolio()
         {
             Portfolio.Add(new PortfolioItem() { Index = "OTP", Volume = 10 });
@@ -78,6 +81,11 @@ namespace week06
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Mentes();
         }
     }
 }
